@@ -2,9 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/practice", "destination": "/practice.html", "permanent": true },
-    { "source": "/resources", "destination": "/resources.html", "permanent": true }
+  "builds": [
+    { "src": "package.json", "use": "@vercel/node" },
+    { "src": "tools/build.py", "use": "@vercel/python" }
   ],
   "headers": [
     {
@@ -24,16 +24,3 @@
     }
   ]
 }
-{
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "tools/build.py",
-      "use": "@vercel/python"
-    }
-  ]
-}
-
