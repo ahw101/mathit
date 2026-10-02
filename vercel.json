@@ -24,3 +24,16 @@
     }
   ]
 }
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "tools/build.py",
+      "use": "@vercel/python"
+    }
+  ]
+}
+
