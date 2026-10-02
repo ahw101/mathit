@@ -1,0 +1,473 @@
+# -*- coding: utf-8 -*-
+"""Home page content for Math It!"""
+from shell import ad
+
+YEARS = [
+    (2, "KS1", "Number bonds, doubling and halving, the 2, 5 and 10 times tables, simple missing numbers."),
+    (3, "Lower KS2", "The 3, 4 and 8 times tables, column addition, rounding, unit fractions of amounts."),
+    (4, "Lower KS2", "Tables to 12 × 12, short division with remainders, hundredths, metric units."),
+    (5, "Upper KS2", "Long multiplication, powers of ten with decimals, percentages, mixed numbers."),
+    (6, "Upper KS2", "Long division, BIDMAS, dividing fractions, ratio, algebra, negative numbers."),
+]
+
+LEVELS = [
+    ("easy", "Easy", "Smaller numbers and single-step questions. Good for a warm-up."),
+    ("medium", "Medium", "The expected standard for the year group."),
+    ("hard", "Hard", "Multi-step work and awkward numbers, for children who need stretching."),
+]
+
+COVERAGE = [
+    ("Mental arithmetic",
+     "Addition and subtraction, multiplication facts to 12 × 12, division facts, doubling and halving, number bonds to 10, 20, 100 and 1000."),
+    ("Place value",
+     "The value of a digit in integers and decimals. Rounding to the nearest 10, 100, 1000 and 10 000, and decimals to one or two places."),
+    ("Written methods",
+     "Long multiplication up to 3-digit × 2-digit, short division with remainders, and long division of 4-digit numbers by 2-digit divisors."),
+    ("Fractions",
+     "Multiplying by integers and by other fractions, adding and subtracting with unlike denominators, dividing by whole numbers and by fractions, mixed numbers and simplifying."),
+    ("Decimals and percentages",
+     "Multiplying and dividing by 10, 100 and 1000, decimal addition with mismatched places, decimal multiplication and division, percentages of amounts, and converting between fractions, decimals and percentages."),
+    ("Reasoning and algebra",
+     "Missing-number equations with the unknown in any position, BIDMAS, one- and two-step equations, negative numbers, squares, cubes, roots, ratio and sequences."),
+    ("Measurement",
+     "Metric conversions for length, mass and capacity, plus area and perimeter of rectangles and triangles."),
+]
+
+PARENT_TIPS = [
+    ("Short and daily beats long and weekly",
+     "Ten focused minutes a day moves facts into long-term memory. An hour on Sunday does not."),
+    ("Sit alongside rather than over",
+     "Do two questions together out loud, then let them run. Hearing you think aloud teaches strategy."),
+    ("Mark it straight away",
+     "Press <strong>Mark</strong> the moment the sheet is finished. Feedback within seconds is worth far more than feedback tomorrow."),
+    ("Ask about the method first",
+     "When something is wrong, start with “how did you work that out?”. Most errors are one misapplied step."),
+    ("Go easy on the timer",
+     "Stopwatch mode helps once a method is secure. A child still learning the method needs thinking time."),
+    ("30 out of 36 is a good session",
+     "Full marks usually means the sheet was too easy. Nudge the difficulty up when accuracy stays high."),
+]
+
+TEACHER_TIPS = [
+    ("Use it as a settler",
+     "Print a class set or project a sheet for the first ten minutes. The routine does half your behaviour management."),
+    ("Differentiate by link",
+     "Every sheet has a URL. Send Year 5 Easy to one group and Year 6 Hard to another from the same slide."),
+    ("Give everyone the same sheet",
+     "The sheet number sits in the link. Share it and the whole class gets identical questions, which makes marking quick."),
+    ("Narrow the topics for a gap",
+     "Open <strong>Worksheet settings</strong> and switch off everything except the one or two topics you are targeting."),
+    ("Print with the answer key",
+     "Print questions only, answers only, or both. There is also a class-set option that prints several different sheets at once."),
+    ("Watch the repeat offenders",
+     "The score card lists the topics that produced mistakes. The same topic flagged three sheets running is your next mini-lesson."),
+]
+
+FEATURES = [
+    ("Fresh questions every time",
+     "Numbers are generated in your browser, so there is no fixed bank of sheets to run out of."),
+    ("Instant marking",
+     "Correct answers turn green, incorrect ones red with the right answer beside them, and you get a score card by topic."),
+    ("Answer keys",
+     "Show the key on screen for marking, or print it on its own page."),
+    ("Class sets",
+     "Print up to 35 different sheets in one go, with or without answer keys."),
+    ("Works on paper",
+     "The print layout drops the navigation, sidebar and adverts and gives you two tidy columns on A4."),
+    ("Dark mode and large text",
+     "Three text sizes, a compact density option, a high-contrast mode and a proper dark theme."),
+    ("Timer or stopwatch",
+     "Count up to see how long a sheet takes, or count down to rehearse working under time pressure."),
+    ("Nothing to sign up for",
+     "No account, no email address. Your settings live in your own browser and nowhere else."),
+]
+
+FAQS = [
+    ("Is Math It! really free to use?",
+     "Yes. Every worksheet, every year group and every topic guide is free, with no account, no email address and no trial period. The site is supported by a small number of clearly labelled adverts, which is what keeps it free for schools and families."),
+    ("Which curriculum does Math It! follow?",
+     "The question bank is written against the National Curriculum for mathematics in England, covering Key Stage 1 (Year 2) through the whole of Key Stage 2 (Years 3 to 6). The topics, number ranges and written methods follow the statutory programmes of study, so the content maps cleanly onto most primary schemes of work. It also suits learners following the Curriculum for Wales, the Northern Ireland curriculum and comparable Year 2–6 or Grade 1–5 content elsewhere."),
+    ("Do I need to create an account?",
+     "No. Nothing is stored on a server. Your chosen year group, difficulty and topic selections are remembered in your own browser using local storage, and you can clear them at any time from your browser settings."),
+    ("How are the questions generated?",
+     "Every sheet is built in your browser from a library of more than thirty question types. Numbers are chosen at random inside ranges appropriate to the year group and difficulty, so you can press <strong>New</strong> all day and rarely meet the same sheet twice."),
+    ("Can two children get the same worksheet?",
+     "Yes. Each sheet has a number, shown next to the title and stored in the page link. Share that link and anyone who opens it receives an identical worksheet, which makes whole-class marking straightforward."),
+    ("How do I print just the answers?",
+     "Use the <strong>Print</strong> menu on the worksheet page. You can print the questions only, the answer key only, or both with the key on its own page. There is also a class-set option that prints several different sheets in one job."),
+    ("How do I type a fraction or a remainder?",
+     "Type fractions with a slash, such as <code>3/4</code>, and mixed numbers with a space, such as <code>1 1/2</code>. Remainders accept <code>12 r 3</code>, <code>12r3</code> or <code>12 remainder 3</code>. Equivalent answers are accepted, so <code>6/8</code> and <code>0.75</code> both mark correct for three quarters."),
+    ("Is there a dark mode?",
+     "Yes. The sun and moon button in the header flips between light and dark, and the footer has an Auto setting that follows your device. Printing always uses black on white whichever theme you are using."),
+    ("Is the site suitable for children with additional needs?",
+     "There is a high-contrast mode, three text sizes and a compact density option in the settings drawer, and every control is reachable from the keyboard with visible focus outlines. Answer boxes are labelled for screen readers with the full question text."),
+    ("Does Math It! collect personal data from children?",
+     "No. We do not ask for names, email addresses or any other personal information, and we do not use analytics cookies that identify individuals. Advertising is served by Google AdSense; our <a href=\"privacy.html\" class=\"link\">privacy notice</a> explains exactly what that involves and how to control it."),
+    ("How many questions are on a sheet?",
+     "Thirty-six by default, laid out as two columns of eighteen, which is about ten to fifteen minutes of work for most children. You can set the count to anything from twelve to sixty in the worksheet settings."),
+]
+
+
+def _year_cards():
+    out = []
+    for y, label, blurb in YEARS:
+        out.append(f"""          <button type="button" data-year-btn="{y}" aria-pressed="false"
+                  class="flex flex-col rounded-lg border border-line bg-surface p-4 text-left transition-colors hover:border-accent-line hover:bg-accent-soft/40">
+            <span class="font-display text-2xl font-bold text-strong">Year {y}</span>
+            <span class="mt-0.5 text-[0.7rem] font-bold uppercase tracking-wider text-faint">{label}</span>
+            <span class="mt-2.5 text-sm leading-relaxed text-soft">{blurb}</span>
+          </button>""")
+    return "\n".join(out)
+
+
+def _level_cards():
+    out = []
+    for key, label, blurb in LEVELS:
+        out.append(f"""          <button type="button" data-level-btn="{key}" aria-pressed="false"
+                  class="flex flex-1 flex-col rounded-lg border border-line bg-surface px-4 py-3 text-left text-body transition-colors hover:border-line-strong">
+            <span class="font-display text-base font-bold">{label}</span>
+            <span class="mt-1 text-xs leading-relaxed opacity-85">{blurb}</span>
+          </button>""")
+    return "\n".join(out)
+
+
+def _coverage():
+    return "\n          ".join(
+        f'<div class="border-t border-line pt-4">'
+        f'<h3 class="font-display text-base font-bold text-strong">{g}</h3>'
+        f'<p class="mt-1.5 text-sm leading-relaxed text-soft">{d}</p></div>'
+        for g, d in COVERAGE
+    )
+
+
+def _features():
+    return "\n          ".join(
+        f'<div class="border-t border-line pt-4">'
+        f'<h3 class="text-sm font-bold text-strong">{t}</h3>'
+        f'<p class="mt-1.5 text-sm leading-relaxed text-soft">{d}</p></div>'
+        for t, d in FEATURES
+    )
+
+
+def _tips(items):
+    return "\n            ".join(
+        f'<li><strong class="block text-sm font-bold text-strong">{t}</strong>'
+        f'<span class="mt-1 block text-sm leading-relaxed text-soft">{b}</span></li>'
+        for t, b in items
+    )
+
+
+def _faqs():
+    return "\n          ".join(
+        f'<details data-exclusive class="group border-b border-line py-4">'
+        f'<summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-strong">'
+        f'<span>{q}</span>'
+        f'<svg viewBox="0 0 20 20" class="h-4 w-4 shrink-0 text-accent-text transition-transform group-open:rotate-45" fill="currentColor" aria-hidden="true"><path d="M9 3h2v14H9z"/><path d="M3 9h14v2H3z"/></svg>'
+        f'</summary>'
+        f'<div class="mt-3 max-w-prose text-sm leading-relaxed text-body">{a}</div></details>'
+        for q, a in FAQS
+    )
+
+
+YEAR_TABLE_ROWS = [
+    ("Year 2", "KS1",
+     "Number bonds to 20 and 100, the 2, 5 and 10 times tables, doubling and halving, simple missing-number sentences and counting in steps."),
+    ("Year 3", "Lower KS2",
+     "The 3, 4 and 8 times tables, three-digit addition and subtraction, rounding to 10 and 100, unit fractions of amounts, adding fractions with the same denominator."),
+    ("Year 4", "Lower KS2",
+     "All tables to 12 × 12, short division with remainders, hundredths and decimal notation, multiplying by 10 and 100, metric conversion, area and perimeter."),
+    ("Year 5", "Upper KS2",
+     "Long multiplication, multiplying and dividing by 10, 100 and 1000 with decimals, percentages of amounts, mixed numbers, square and cube numbers, negative numbers."),
+    ("Year 6", "Upper KS2",
+     "Long division with remainders, BIDMAS, dividing fractions by fractions, fraction to decimal to percentage conversion, ratio and proportion, simple algebra."),
+]
+
+
+def _year_table():
+    return "\n                ".join(
+        f'<tr class="border-b border-line">'
+        f'<th scope="row" class="py-3 pr-4 text-left font-display text-base font-bold text-strong">{y}</th>'
+        f'<td class="py-3 pr-4 text-sm text-faint">{ks}</td>'
+        f'<td class="py-3 text-sm text-body">{d}</td></tr>'
+        for y, ks, d in YEAR_TABLE_ROWS
+    )
+
+
+BODY = f"""  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="border-b border-line bg-surface">
+      <div class="mx-auto grid max-w-page gap-12 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
+        <div class="lg:col-span-7">
+          <h1 class="font-display text-4xl font-bold leading-[1.1] text-strong sm:text-5xl">
+            Maths worksheets for Years 2 to 6, made in your browser
+          </h1>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-body">
+            Pick a year group and a difficulty. You get 36 questions covering fractions, long
+            division, percentages, BIDMAS, ratio and more. Work on screen and have it marked
+            instantly, or print it with an answer key. It is free and there is nothing to sign up for.
+          </p>
+
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <a href="#choose" class="btn btn-primary btn-lg">Make a worksheet</a>
+            <a href="resources.html" class="btn btn-ghost btn-lg">Read the topic guides</a>
+          </div>
+
+          <dl class="mt-9 flex flex-wrap gap-x-10 gap-y-4">
+            <div><dt class="stat-num">34</dt><dd class="stat-cap">question types</dd></div>
+            <div><dt class="stat-num">5</dt><dd class="stat-cap">year groups</dd></div>
+            <div><dt class="stat-num">3</dt><dd class="stat-cap">difficulty levels</dd></div>
+            <div><dt class="stat-num">36</dt><dd class="stat-cap">questions a sheet</dd></div>
+          </dl>
+        </div>
+
+        <!-- A real extract from a Year 6 Hard sheet -->
+        <div class="lg:col-span-5">
+          <figure class="rounded-xl border border-line bg-raise p-5">
+            <figcaption class="flex items-baseline justify-between gap-3 border-b border-line pb-3">
+              <span class="font-display text-base font-bold text-strong">Year 6 · Hard</span>
+              <span class="font-mono text-xs text-faint">Sheet #418203</span>
+            </figcaption>
+            <ol class="mt-1 text-[0.95rem] text-strong">
+              <li class="flex items-center justify-between gap-3 border-b border-dotted border-line py-2.5">
+                <span><span class="mr-2 font-mono text-xs text-faint">1.</span>
+                  <span class="frac"><span class="num">3</span><span class="den">4</span></span>
+                  <span class="op">×</span> 16 <span class="op">=</span></span>
+                <span class="h-7 w-16 rounded-md border border-line-strong bg-surface"></span>
+              </li>
+              <li class="flex items-center justify-between gap-3 border-b border-dotted border-line py-2.5">
+                <span><span class="mr-2 font-mono text-xs text-faint">2.</span>36.08 <span class="op">×</span> 1000 <span class="op">=</span></span>
+                <span class="h-7 w-16 rounded-md border border-line-strong bg-surface"></span>
+              </li>
+              <li class="flex items-center justify-between gap-3 border-b border-dotted border-line py-2.5">
+                <span><span class="mr-2 font-mono text-xs text-faint">3.</span>18 <span class="op">+</span> 24 <span class="op">÷</span> 6 <span class="op">=</span></span>
+                <span class="h-7 w-16 rounded-md border border-line-strong bg-surface"></span>
+              </li>
+              <li class="flex items-center justify-between gap-3 border-b border-dotted border-line py-2.5">
+                <span><span class="mr-2 font-mono text-xs text-faint">4.</span>
+                  <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+                  <span class="op">÷</span>
+                  <span class="frac"><span class="num">3</span><span class="den">4</span></span>
+                  <span class="op">=</span></span>
+                <span class="h-7 w-16 rounded-md border border-line-strong bg-surface"></span>
+              </li>
+              <li class="flex items-center justify-between gap-3 border-b border-dotted border-line py-2.5">
+                <span><span class="mr-2 font-mono text-xs text-faint">5.</span>60% of 2200 <span class="op">=</span></span>
+                <span class="h-7 w-16 rounded-md border border-line-strong bg-surface"></span>
+              </li>
+              <li class="flex items-center justify-between gap-3 py-2.5">
+                <span><span class="mr-2 font-mono text-xs text-faint">6.</span>
+                  <span class="boxed">?</span> <span class="op">×</span> 12 <span class="op">=</span> 889 <span class="op">×</span> 6</span>
+                <span class="h-7 w-16 rounded-md border border-line-strong bg-surface"></span>
+              </li>
+            </ol>
+            <p class="mt-3 border-t border-line pt-3 text-xs text-soft">
+              Six of thirty-six. The rest are generated the moment you open the sheet.
+            </p>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AD: LEADERBOARD ===================== -->
+    <div class="mx-auto max-w-page px-4 py-8 sm:px-6 lg:px-8">
+      {ad("home-leaderboard", size="970 × 90", shape="leaderboard")}
+    </div>
+
+    <!-- ===================== SELECTION DASHBOARD ===================== -->
+    <section id="choose" class="mx-auto max-w-page scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <h2 class="font-display text-3xl font-bold">Build today's worksheet</h2>
+        <p class="mt-3 leading-relaxed text-body">
+          Choose the year group your child or class is working at, then set the challenge.
+          Nothing is locked: a confident Year 4 can sit a Year 5 Easy sheet, and a Year 6
+          revising for SATs will find plenty in Year 6 Hard.
+        </p>
+      </div>
+
+      <div data-picker class="mt-8">
+        <h3 class="label">Year group</h3>
+        <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+{_year_cards()}
+        </div>
+
+        <h3 class="label mt-8">Difficulty</h3>
+        <div class="mt-3 flex flex-col gap-3 sm:flex-row">
+{_level_cards()}
+        </div>
+
+        <div class="mt-7 flex flex-col gap-4 rounded-xl border border-accent-line bg-accent-soft p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="font-display text-xl font-bold text-accent-soft-fg" data-picker-summary>Year 5 · Medium · 36 questions</p>
+            <p class="mt-1 text-sm text-accent-soft-fg/85" data-picker-blurb>Expected standard — the everyday fluency work for the year group.</p>
+          </div>
+          <a data-picker-link href="practice.html?year=5&amp;level=medium" class="btn btn-primary btn-lg shrink-0">
+            Open the worksheet
+            <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M11 4l6 6-6 6-1.4-1.4 3.6-3.6H3V9h10.2L9.6 5.4z"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================== WHAT YOU GET ===================== -->
+    <section class="border-y border-line bg-surface py-14">
+      <div class="mx-auto max-w-page px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="font-display text-3xl font-bold">What you get</h2>
+          <p class="mt-3 leading-relaxed text-body">
+            Everything runs in the browser, so sheets appear instantly and keep working if the
+            connection drops.
+          </p>
+        </div>
+        <div class="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+          {_features()}
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CURRICULUM ===================== -->
+    <section id="curriculum" class="mx-auto max-w-page scroll-mt-24 px-4 py-14 sm:px-6 lg:px-8">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-7">
+          <h2 class="font-display text-3xl font-bold">What each year group covers</h2>
+          <p class="mt-3 max-w-prose leading-relaxed text-body">
+            Questions are written against the National Curriculum programmes of study for
+            mathematics in England, from Key Stage 1 through Key Stage 2. The number ranges and
+            written methods follow the statutory content for each year, so sheets slot into most
+            primary schemes of work without adjustment.
+          </p>
+
+          <table class="mt-7 w-full border-collapse">
+            <caption class="sr-only">Curriculum focus by year group</caption>
+            <thead>
+              <tr class="border-b-2 border-line-strong">
+                <th scope="col" class="py-2 pr-4 text-left text-xs font-bold uppercase tracking-wider text-faint">Year</th>
+                <th scope="col" class="py-2 pr-4 text-left text-xs font-bold uppercase tracking-wider text-faint">Stage</th>
+                <th scope="col" class="py-2 text-left text-xs font-bold uppercase tracking-wider text-faint">Focus</th>
+              </tr>
+            </thead>
+            <tbody>
+                {_year_table()}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lg:col-span-5">
+          <h2 class="font-display text-3xl font-bold">In the question bank</h2>
+          <div class="mt-7 grid gap-x-8 gap-y-5">
+          {_coverage()}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHY DRILLS ===================== -->
+    <section id="why" class="scroll-mt-24 border-y border-line bg-surface py-14">
+      <div class="mx-auto max-w-page px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="font-display text-3xl font-bold">Why short daily practice works</h2>
+          <p class="mt-3 leading-relaxed text-body">
+            Regular arithmetic practice is unglamorous and reliable. Three ideas explain why it earns
+            its ten minutes.
+          </p>
+        </div>
+
+        <div class="mt-9 grid gap-8 md:grid-cols-3">
+          <article class="border-t-2 border-accent pt-4">
+            <h3 class="font-display text-lg font-bold text-strong">Fluency frees up thinking</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-body">
+              Working memory holds only a handful of items at once. A child who has to rebuild 7 × 8
+              from repeated addition spends all of it on a single fact. Once facts are automatic they
+              cost almost nothing to recall, and the spare capacity goes into reasoning and checking.
+              Fluency is a gateway to problem solving, not an alternative to it.
+            </p>
+          </article>
+          <article class="border-t-2 border-accent pt-4">
+            <h3 class="font-display text-lg font-bold text-strong">Recall beats re-reading</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-body">
+              Pulling an answer out of memory strengthens it far more than reading the same fact
+              again. That is the testing effect, one of the most replicated findings in cognitive
+              psychology. A worksheet is a retrieval exercise, and the effort of recall is where the
+              learning happens. Not quite remembering is the point, not a problem.
+            </p>
+          </article>
+          <article class="border-t-2 border-accent pt-4">
+            <h3 class="font-display text-lg font-bold text-strong">Mixing topics builds judgement</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-body">
+              Twenty fraction questions in a row teach a child to repeat a procedure. Twenty mixed
+              questions teach them to choose one, which is harder and lasts longer. Sheets here
+              interleave topics on purpose, cycling through every enabled topic before anything
+              repeats, so children have to identify the question type first.
+            </p>
+          </article>
+        </div>
+
+        <div class="mt-10 rounded-xl border border-line bg-raise p-5 sm:p-6">
+          <h3 class="font-display text-lg font-bold text-strong">A workable weekly rhythm</h3>
+          <div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div><p class="stat-cap">Monday to Thursday</p><p class="mt-1.5 text-sm leading-relaxed text-body">One sheet at the expected level. Mark it together. Note anything that trips them up twice.</p></div>
+            <div><p class="stat-cap">Friday</p><p class="mt-1.5 text-sm leading-relaxed text-body">Switch off every topic except the one that caused trouble and run a focused sheet.</p></div>
+            <div><p class="stat-cap">Every fortnight</p><p class="mt-1.5 text-sm leading-relaxed text-body">Try one sheet a level higher. If the score stays above 80%, move up for good.</p></div>
+            <div><p class="stat-cap">Before an assessment</p><p class="mt-1.5 text-sm leading-relaxed text-body">Use countdown mode at the expected level to rehearse working to a time limit.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TIPS ===================== -->
+    <section id="tips" class="mx-auto max-w-page scroll-mt-24 px-4 py-14 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <h2 class="font-display text-3xl font-bold">Getting the most out of ten minutes</h2>
+        <p class="mt-3 leading-relaxed text-body">
+          The worksheet is only half of it. Most of the learning happens in the two minutes after the
+          last question.
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-10 lg:grid-cols-2">
+        <div>
+          <h3 class="font-display text-xl font-bold">For parents and tutors</h3>
+          <ul class="mt-5 space-y-4 border-t border-line pt-5">
+            {_tips(PARENT_TIPS)}
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-display text-xl font-bold">For teachers</h3>
+          <ul class="mt-5 space-y-4 border-t border-line pt-5">
+            {_tips(TEACHER_TIPS)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AD: IN-FEED ===================== -->
+    <div class="mx-auto max-w-page px-4 pb-8 sm:px-6 lg:px-8">
+      {ad("home-infeed", size="728 × 90", shape="leaderboard")}
+    </div>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="scroll-mt-24 border-t border-line bg-surface py-14">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-3xl font-bold">Common questions</h2>
+        <div data-accordion class="mt-6 border-t border-line">
+          {_faqs()}
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="mx-auto max-w-page px-4 py-14 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-5 rounded-xl border border-line bg-raise px-6 py-10 text-center sm:px-10">
+        <h2 class="font-display text-2xl font-bold sm:text-3xl">Ready when you are</h2>
+        <p class="mx-auto max-w-xl leading-relaxed text-body">
+          Choose a year and a level, and a fresh worksheet appears in under a second.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="practice.html?year=5&amp;level=medium" class="btn btn-primary btn-lg">Start a Year 5 sheet</a>
+          <a href="#choose" class="btn btn-ghost btn-lg">Choose a different year</a>
+        </div>
+      </div>
+    </section>
+
+  </main>"""

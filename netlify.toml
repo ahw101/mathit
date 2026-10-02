@@ -1,0 +1,41 @@
+# Math It! — Netlify configuration
+# Drag the project folder onto app.netlify.com/drop, or connect the repo.
+# There is no build step for hosting: the HTML and CSS in the repo are the site.
+# (Run `npm run build` locally first if you have edited anything in tools/ or src/.)
+
+[build]
+  publish = "."
+  command = ""
+
+[[redirects]]
+  from = "/practice"
+  to = "/practice.html"
+  status = 301
+
+[[redirects]]
+  from = "/resources"
+  to = "/resources.html"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

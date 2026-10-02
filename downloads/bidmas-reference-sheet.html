@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BIDMAS reference sheet · Math It! printable reference sheet</title>
+  <meta name="description" content="A free printable BIDMAS order of operations reference sheet, including the two myths about division and subtraction, with eight worked examples and practice questions.">
+  <link rel="canonical" href="https://www.mathit.co.uk/downloads/bidmas-reference-sheet.html">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <style>
+    /* Every reference sheet must print on exactly ONE side of A4. The shared
+       print rules in app.css strip the chrome; these tighten the internals.
+       Note that Chrome's PDF pagination ignores `zoom` and CSS transforms, so
+       the fit has to come from real layout values. The fixed height on .sheet
+       is a hard guarantee: whatever else changes, the sheet can never
+       paginate onto a second side. */
+    @media print {
+      @page { size: A4 portrait; margin: 8mm; }
+      .sheet-chrome { display: none !important; }
+      .sheet {
+        padding: 0 !important; margin: 0 !important;
+        width: 100% !important; max-width: 100% !important;
+        height: 281mm !important; overflow: hidden !important;
+      }
+      /* Stop a wide multiplication square pushing the sheet past the page box,
+         which Chrome resolves by spilling onto a second sheet. */
+      .sheet table { width: 100% !important; max-width: 100% !important; table-layout: fixed !important; }
+      .sheet pre { overflow: hidden !important; white-space: pre-wrap !important; }
+      .sheet header { padding-bottom: 2mm !important; }
+      .sheet footer { margin-top: 3mm !important; padding-top: 2mm !important; }
+      .sheet section { padding: 2.6mm !important; break-inside: avoid; }
+      .sheet h1 { font-size: 19pt !important; }
+      .sheet h2 { font-size: 10.5pt !important; }
+      .sheet table { font-size: 8.2pt !important; }
+      .sheet td, .sheet th { padding: .5mm !important; }
+      .sheet .gap-5 { gap: 2.6mm !important; }
+      .sheet .gap-4 { gap: 2.2mm !important; }
+      .sheet .gap-3 { gap: 1.8mm !important; }
+      .sheet .mt-8 { margin-top: 3mm !important; }
+      .sheet .mt-6 { margin-top: 2.4mm !important; }
+      .sheet .mt-5 { margin-top: 2mm !important; }
+      .sheet .mt-4 { margin-top: 1.8mm !important; }
+      .sheet .mt-3 { margin-top: 1.4mm !important; }
+      .sheet .space-y-2 > * + * { margin-top: 1.2mm !important; }
+      .sheet .space-y-1 > * + * { margin-top: .7mm !important; }
+    }
+  </style>
+
+  <script>
+  (function () {
+    try {
+      var d = document.documentElement, s = {};
+      try { s = JSON.parse(localStorage.getItem('mathit:settings') || '{}') || {}; } catch (e) {}
+      var t = s.theme || 'auto';
+      var dark = t === 'dark' || (t === 'auto' &&
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      d.classList.toggle('mi-dark', dark);
+      if (s.contrast) d.classList.add('mi-contrast');
+      if (s.compact) d.classList.add('mi-compact');
+      if (s.fontScale === 'large') d.classList.add('mi-font-lg');
+      if (s.fontScale === 'xlarge') d.classList.add('mi-font-xl');
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', dark ? '#121110' : '#faf9f7');
+    } catch (e) {}
+  })();
+  </script>
+</head>
+<body class="bg-canvas">
+  <div class="sheet-chrome no-print sticky top-0 z-10 border-b border-line bg-canvas/95 backdrop-blur">
+    <div class="mx-auto flex max-w-[210mm] flex-wrap items-center gap-3 px-4 py-3">
+      <a href="../resources.html" class="btn btn-sm btn-ghost">← All printables</a>
+      <span class="text-sm font-semibold text-body">BIDMAS reference sheet</span>
+      <button type="button" data-theme-toggle class="icon-btn ml-auto h-8 w-8" aria-label="Switch between light and dark"><svg data-theme-icon="light" viewBox="0 0 20 20" class="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true"><path d="M10 14a4 4 0 100-8 4 4 0 000 8zm0-12a1 1 0 011 1v1.5a1 1 0 11-2 0V3a1 1 0 011-1zm0 13a1 1 0 011 1V17a1 1 0 11-2 0v-1a1 1 0 011-1zM3 9h1.5a1 1 0 110 2H3a1 1 0 110-2zm12.5 0H17a1 1 0 110 2h-1.5a1 1 0 110-2zM4.9 3.5l1.1 1.1A1 1 0 014.6 6L3.5 4.9A1 1 0 014.9 3.5zm9 9.9 1.1 1.1a1 1 0 01-1.4 1.4L12.5 14.8a1 1 0 011.4-1.4zM15.1 3.5a1 1 0 011.4 1.4L15.4 6A1 1 0 0114 4.6zM6 14.8a1 1 0 01-1.4 1.4L3.5 15.1A1 1 0 014.9 13.7z"/></svg><svg data-theme-icon="dark" viewBox="0 0 20 20" class="hidden h-[18px] w-[18px]" fill="currentColor" aria-hidden="true"><path d="M8.3 2.2a7.8 7.8 0 109.5 9.6 6.4 6.4 0 01-9.5-9.6z"/></svg></button>
+      <button type="button" data-print-trigger="worksheet" class="btn btn-sm btn-primary">Print this sheet</button>
+    </div>
+  </div>
+
+  <main class="sheet mx-auto my-6 max-w-[210mm] bg-surface p-10 shadow-card print:my-0 print:shadow-none">
+    <header class="flex items-end justify-between border-b-2 border-line-strong pb-3">
+      <div>
+        <h1 class="font-display text-3xl font-bold leading-none text-strong">BIDMAS reference sheet</h1>
+        <p class="mt-1.5 text-sm text-soft">The correct hierarchy, the two common myths and eight worked examples · Years 5–6</p>
+      </div>
+      <div class="text-right">
+        <p class="font-display text-lg font-bold text-strong">Math It!</p>
+        <p class="text-[0.7rem] uppercase tracking-wider text-soft">www.mathit.co.uk</p>
+      </div>
+    </header>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      <section class="sm:col-span-2 rounded-xl border border-accent-line bg-accent-soft/60 p-4">
+        <h2 class="font-display text-base font-bold">The hierarchy</h2>
+        <table class="mt-3 w-full border-collapse text-sm">
+          <thead><tr class="bg-invert text-invert-fg">
+            <th class="border border-line px-2 py-1.5 text-left">Order</th>
+            <th class="border border-line px-2 py-1.5 text-left">Operation</th>
+            <th class="border border-line px-2 py-1.5 text-left">Direction</th></tr></thead>
+          <tbody>
+            <tr><td class="border border-line-strong px-2 py-1.5 font-bold">1</td><td class="border border-line-strong px-2 py-1.5"><strong>B</strong>rackets</td><td class="border border-line-strong px-2 py-1.5">Innermost first</td></tr>
+            <tr class="bg-surface"><td class="border border-line-strong px-2 py-1.5 font-bold">2</td><td class="border border-line-strong px-2 py-1.5"><strong>I</strong>ndices — powers and roots</td><td class="border border-line-strong px-2 py-1.5">Left to right</td></tr>
+            <tr><td class="border border-line-strong px-2 py-1.5 font-bold">3</td><td class="border border-line-strong px-2 py-1.5"><strong>D</strong>ivision <em>and</em> <strong>M</strong>ultiplication</td><td class="border border-line-strong px-2 py-1.5"><strong>Left to right</strong></td></tr>
+            <tr class="bg-surface"><td class="border border-line-strong px-2 py-1.5 font-bold">4</td><td class="border border-line-strong px-2 py-1.5"><strong>A</strong>ddition <em>and</em> <strong>S</strong>ubtraction</td><td class="border border-line-strong px-2 py-1.5"><strong>Left to right</strong></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="rounded-xl border-2 border-dashed border-bad-line bg-bad-soft/50 p-4">
+        <h2 class="font-display text-base font-bold text-bad-soft-fg">Two myths</h2>
+        <p class="mt-2 text-sm text-bad-soft-fg"><strong>✗ Division before multiplication.</strong><br>
+          24 ÷ 4 × 3 = 6 × 3 = <strong>18</strong>, not 2.</p>
+        <p class="mt-3 text-sm text-bad-soft-fg"><strong>✗ Addition before subtraction.</strong><br>
+          20 − 8 + 5 = 12 + 5 = <strong>17</strong>, not 7.</p>
+        <p class="mt-3 text-xs text-bad-soft-fg">They share a level. Work left to right.</p>
+      </section>
+    </div>
+
+    <section class="mt-5 rounded-xl border border-line-strong p-4">
+      <h2 class="font-display text-base font-bold">Eight worked examples</h2>
+      <div class="mt-3 grid gap-x-8 gap-y-2.5 text-sm sm:grid-cols-2">
+        <p><strong>18 + 24 ÷ 6</strong> → 24 ÷ 6 = 4 → 18 + 4 = <strong>22</strong></p>
+        <p><strong>(18 + 24) ÷ 6</strong> → 42 ÷ 6 = <strong>7</strong></p>
+        <p><strong>40 − 6 × 3</strong> → 18 → 40 − 18 = <strong>22</strong></p>
+        <p><strong>5 × 4<sup>2</sup></strong> → 16 → 5 × 16 = <strong>80</strong></p>
+        <p><strong>(5 × 4)<sup>2</sup></strong> → 20<sup>2</sup> = <strong>400</strong></p>
+        <p><strong>36 ÷ (2 + 4) × 5</strong> → 6 → 6 × 5 = <strong>30</strong></p>
+        <p><strong>100 − 20 ÷ 4 − 5</strong> → 5 → 100 − 5 − 5 = <strong>90</strong></p>
+        <p><strong>2 + 3 × (8 − 5)<sup>2</sup></strong> → 3<sup>2</sup> = 9 → 27 → <strong>29</strong></p>
+      </div>
+    </section>
+
+    <section class="mt-5 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-xl border border-warn-line bg-warn-soft/60 p-4">
+        <h2 class="font-display text-base font-bold">The habit that fixes it</h2>
+        <p class="mt-2 text-sm text-strong">Underline the part that happens first <em>before</em> writing anything. One underline, one new line, one step.</p>
+        <pre class="mt-3 rounded-lg bg-surface p-3 font-mono text-sm leading-relaxed">100 − 20 ÷ 4 − 5
+         ‾‾‾‾‾‾
+100 −   5   − 5
+‾‾‾‾‾‾‾‾‾
+     95     − 5
+            90</pre>
+      </div>
+      <div class="rounded-xl border border-line-strong bg-raise p-4">
+        <h2 class="font-display text-base font-bold">Practise it</h2>
+        <p class="mt-2 text-sm text-body">Try these, then check on a Math It! worksheet.</p>
+        <ol class="mt-3 space-y-1.5 text-sm text-strong">
+          <li>1. 7 + 8 × 2 = ______</li>
+          <li>2. (7 + 8) × 2 = ______</li>
+          <li>3. 48 ÷ 6 × 2 = ______</li>
+          <li>4. 60 − 4<sup>2</sup> = ______</li>
+          <li>5. 9 + 36 ÷ (5 + 4) = ______</li>
+          <li>6. 3 × 5 − 12 ÷ 4 = ______</li>
+        </ol>
+        <p class="mt-3 text-xs text-soft">Answers: 23 · 30 · 16 · 44 · 13 · 12</p>
+      </div>
+    </section>
+
+    <footer class="mt-8 border-t border-line-strong pt-3 text-[0.7rem] text-soft">
+      Free to photocopy for classroom and home use · © Math It! · bidmas-reference-sheet.html
+    </footer>
+  </main>
+
+  <script src="../assets/js/settings.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

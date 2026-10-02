@@ -1,0 +1,6 @@
+# Netlify / Cloudflare Pages friendly URLs
+/practice    /practice.html    301
+/resources   /resources.html   301
+/privacy     /privacy.html     301
+/terms       /terms.html       301
+/contact     /contact.html     301

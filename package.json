@@ -1,0 +1,32 @@
+{
+  "name": "math-it",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Math It! \u2014 free printable mental maths worksheets for Years 2\u20136. Static, dependency-free, AdSense-ready.",
+  "keywords": [
+    "education",
+    "mathematics",
+    "worksheet-generator",
+    "ks2",
+    "primary",
+    "tailwindcss"
+  ],
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "npm run build:html && npm run build:css",
+    "build:css": "tailwindcss -i src/app.src.css -o assets/css/app.css --minify",
+    "watch:css": "tailwindcss -i src/app.src.css -o assets/css/app.css --watch",
+    "build:html": "python3 tools/build.py",
+    "serve": "python3 -m http.server 8080 --bind 0.0.0.0",
+    "dev": "npm run build && npm run serve",
+    "test": "node tools/e2e.js",
+    "test:print": "node tools/pagecount.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.43.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "comments": {
+    "test": "The end-to-end suite needs Puppeteer and a server on :8080 \u2014 run `npm i -D puppeteer`, `npm run serve`, then `npm test`. Puppeteer is deliberately not a declared dependency so a plain `npm install` stays small."
+  }
+}

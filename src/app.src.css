@@ -1,0 +1,505 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   MATH IT! — theme tokens
+   One warm, earthy palette expressed as CSS custom properties.
+   Light, dark and high-contrast simply redefine the properties;
+   no component needs a `dark:` variant.
+   ============================================================ */
+
+:root {
+  --c-canvas:        250 249 247;
+  --c-surface:       255 255 255;
+  --c-raise:         246 244 240;
+  --c-sunken:        239 236 230;
+  --c-line:          225 220 212;
+  --c-line-strong:   197 190 178;
+  --c-strong:         28  26  23;
+  --c-body:           78  72  63;
+  --c-soft:          108 100  87;
+  --c-faint:         148 139 126;
+
+  --c-accent:          4 120  87;
+  --c-accent-hover:    6  95  70;
+  --c-accent-fg:     255 255 255;
+  --c-accent-soft:   236 247 241;
+  --c-accent-soft-fg:  6  78  59;
+  --c-accent-line:   167 214 192;
+  --c-accent-text:     4 108  79;
+
+  --c-warn:          245 158  11;
+  --c-warn-fg:        40  27   5;
+  --c-warn-soft:     254 246 230;
+  --c-warn-soft-fg:  124  73   6;
+  --c-warn-line:     246 205 136;
+
+  --c-bad:           180  67  47;
+  --c-bad-soft:      253 243 241;
+  --c-bad-soft-fg:   122  48  36;
+  --c-bad-line:      237 169 154;
+
+  --c-invert-bg:      31  28  25;
+  --c-invert-soft:    48  43  38;
+  --c-invert-fg:     245 243 240;
+
+  --c-shadow:         23  21  19;
+
+  --mi-rows: 18;
+  --mi-q-size: 1.0625rem;
+  --mi-q-pad: 0.6rem;
+
+  color-scheme: light;
+  accent-color: rgb(var(--c-accent));
+}
+
+html.mi-dark {
+  --c-canvas:         18  17  15;
+  --c-surface:        28  26  23;
+  --c-raise:          38  35  31;
+  --c-sunken:         23  21  19;
+  --c-line:           58  52  46;
+  --c-line-strong:    86  78  68;
+  --c-strong:        246 244 241;
+  --c-body:          206 198 187;
+  --c-soft:          171 162 150;
+  --c-faint:         131 122 110;
+
+  --c-accent:         16 160 114;
+  --c-accent-hover:   22 180 130;
+  --c-accent-fg:       8  26  19;
+  --c-accent-soft:    21  48  38;
+  --c-accent-soft-fg: 142 226 189;
+  --c-accent-line:    38  86  68;
+  --c-accent-text:    82 206 157;
+
+  --c-warn:          234 160  32;
+  --c-warn-fg:        32  22   4;
+  --c-warn-soft:      56  42  16;
+  --c-warn-soft-fg:  246 203 118;
+  --c-warn-line:      96  71  26;
+
+  --c-bad:           196  92  70;
+  --c-bad-soft:       59  30  24;
+  --c-bad-soft-fg:   238 170 152;
+  --c-bad-line:      101  51  40;
+
+  --c-invert-bg:      38  35  31;
+  --c-invert-soft:    50  46  40;
+  --c-invert-fg:     246 244 241;
+
+  --c-shadow:          0   0   0;
+
+  color-scheme: dark;
+}
+
+/* High contrast sharpens whichever theme is active. */
+html.mi-contrast {
+  --c-surface: 255 255 255;
+  --c-canvas: 255 255 255;
+  --c-raise: 255 255 255;
+  --c-line: 0 0 0;
+  --c-line-strong: 0 0 0;
+  --c-strong: 0 0 0;
+  --c-body: 0 0 0;
+  --c-soft: 0 0 0;
+  --c-faint: 48 48 48;
+  --c-accent: 0 82 58;
+  --c-accent-soft: 255 255 255;
+  --c-accent-soft-fg: 0 60 42;
+  --c-accent-line: 0 0 0;
+  --c-accent-text: 0 76 54;
+  --c-bad: 150 30 12;
+  --c-bad-soft: 255 255 255;
+  --c-bad-soft-fg: 130 25 10;
+  --c-warn-soft: 255 255 255;
+  --c-warn-soft-fg: 90 52 0;
+  --c-invert-bg: 0 0 0;
+  --c-invert-fg: 255 255 255;
+}
+html.mi-dark.mi-contrast {
+  --c-surface: 0 0 0;
+  --c-canvas: 0 0 0;
+  --c-raise: 0 0 0;
+  --c-line: 255 255 255;
+  --c-line-strong: 255 255 255;
+  --c-strong: 255 255 255;
+  --c-body: 255 255 255;
+  --c-soft: 235 235 235;
+  --c-faint: 200 200 200;
+  --c-accent: 94 232 176;
+  --c-accent-fg: 0 0 0;
+  --c-accent-soft: 0 0 0;
+  --c-accent-soft-fg: 134 240 194;
+  --c-accent-text: 120 240 190;
+  /* "invert" always means the opposite of the canvas, so solid buttons stay
+     visible instead of turning black-on-black in high-contrast dark mode. */
+  --c-invert-bg: 255 255 255;
+  --c-invert-soft: 235 235 235;
+  --c-invert-fg: 0 0 0;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-body antialiased;
+  }
+
+  ::selection { background: rgb(var(--c-accent) / .22); }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-strong;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+
+  hr { @apply border-line; }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type='number'] { -moz-appearance: textfield; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================
+   Components
+   ============================================================ */
+
+@layer components {
+
+  /* ---------- buttons ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border px-3.5 py-2.5
+           text-sm font-semibold leading-none transition-colors duration-100
+           disabled:cursor-not-allowed disabled:opacity-45;
+  }
+  .btn-primary { @apply border-accent bg-accent text-accent-fg hover:border-accent-hover hover:bg-accent-hover; }
+  .btn-amber   { @apply border-warn bg-warn text-warn-fg hover:brightness-105; }
+  .btn-ghost   { @apply border-line bg-surface text-body hover:border-line-strong hover:bg-raise; }
+  .btn-dark    { @apply border-invert bg-invert text-invert-fg hover:opacity-90; }
+  .btn-quiet   { @apply border-transparent bg-transparent text-soft hover:bg-raise hover:text-strong; }
+  .btn-sm { @apply px-2.5 py-1.5 text-xs; }
+  .btn-lg { @apply px-5 py-3 text-[0.95rem]; }
+
+  /* ---------- surfaces ---------- */
+  .card { @apply rounded-xl border border-line bg-surface; }
+  .card-pad { @apply p-5 sm:p-6; }
+  .panel { @apply rounded-xl border border-line bg-raise; }
+
+  .kicker {
+    @apply text-[0.7rem] font-bold uppercase tracking-[0.15em] text-accent-text;
+  }
+  .table-chip {
+    @apply flex h-9 items-center justify-center rounded-md border border-line bg-surface
+           font-mono text-sm font-semibold text-soft transition-colors;
+  }
+  .table-chip:hover { @apply border-line-strong bg-raise text-strong; }
+  .table-chip[aria-pressed="true"] {
+    @apply border-accent bg-accent text-accent-fg;
+  }
+  .table-chip[aria-pressed="true"]:hover { @apply bg-accent text-accent-fg; }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-md border border-line bg-raise
+           px-2 py-1 text-xs font-medium text-soft;
+  }
+  .link {
+    @apply font-medium text-accent-text underline decoration-accent-line decoration-2
+           underline-offset-2 hover:decoration-accent;
+  }
+  .rule { @apply border-t border-line; }
+
+  /* ---------- nav ---------- */
+  .nav-link {
+    @apply rounded-md px-2.5 py-2 text-sm font-medium text-soft transition-colors
+           hover:bg-raise hover:text-strong;
+  }
+  .nav-link[aria-current='page'] { @apply bg-accent-soft text-accent-soft-fg; }
+
+  .icon-btn {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line
+           bg-surface text-soft transition-colors hover:bg-raise hover:text-strong;
+  }
+
+  /* ---------- forms ---------- */
+  .field {
+    @apply w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-strong
+           placeholder:text-faint focus:border-accent focus:outline-none
+           focus:ring-2 focus:ring-accent/25;
+  }
+  .label { @apply block text-[0.7rem] font-bold uppercase tracking-[0.12em] text-faint; }
+
+  .opt {
+    @apply flex cursor-pointer items-start gap-2.5 rounded-lg border border-line bg-surface
+           px-3 py-2.5 text-sm transition-colors hover:border-accent-line hover:bg-accent-soft/40;
+  }
+  .opt input { @apply mt-0.5 h-4 w-4 shrink-0 rounded border-line-strong text-accent focus:ring-accent; }
+  .opt:has(input:checked) { @apply border-accent-line bg-accent-soft/70; }
+
+  .seg {
+    @apply inline-flex rounded-lg border border-line bg-raise p-0.5;
+  }
+  .seg > button {
+    @apply rounded-md px-3 py-1.5 text-xs font-semibold text-soft transition-colors hover:text-strong;
+  }
+  .seg > button[aria-pressed='true'] {
+    @apply bg-accent text-accent-fg;
+  }
+
+  /* generic "this toggle is on" state for ghost buttons */
+  .btn-ghost[aria-pressed='true'],
+  .btn-ghost[aria-checked='true'] {
+    @apply border-accent bg-accent-soft text-accent-soft-fg;
+  }
+
+  /* ---------- advertisement slots ---------- */
+  .ad-slot {
+    @apply flex min-h-[250px] w-full flex-col items-center justify-center gap-1 rounded-lg
+           border border-dashed border-line-strong bg-raise/60 p-4 text-center;
+  }
+  .ad-label { @apply text-[0.65rem] font-bold uppercase tracking-[0.2em] text-faint; }
+  .ad-slot--leaderboard { @apply min-h-[100px]; }
+  .ad-slot--tall { @apply min-h-[600px]; }
+
+  /* ---------- worksheet ---------- */
+  .q-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media (min-width: 768px) {
+    .q-grid {
+      grid-auto-flow: column;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: repeat(var(--mi-rows), auto);
+      column-gap: 2.25rem;
+    }
+  }
+
+  .q-item {
+    @apply flex items-center gap-2 border-b border-dotted border-line;
+    padding-top: var(--mi-q-pad);
+    padding-bottom: var(--mi-q-pad);
+    font-size: var(--mi-q-size);
+  }
+  .q-num { @apply w-6 shrink-0 select-none text-right font-mono text-xs font-semibold text-faint; }
+  .q-body { @apply flex min-w-0 flex-1 flex-nowrap items-center gap-x-1.5 text-strong; }
+  .q-expr { @apply shrink-0 whitespace-nowrap; }
+  .q-expr--prompt { @apply min-w-0 shrink; white-space: normal; }
+  .q-prompt { @apply text-[0.95em] leading-snug; white-space: normal; }
+  .q-eq { @apply px-0.5 text-faint; }
+
+  .q-input {
+    @apply w-24 shrink-0 rounded-md border border-line-strong bg-surface px-2 py-1.5 text-center
+           font-mono text-[0.95em] font-semibold text-strong transition-colors
+           placeholder:font-sans placeholder:text-faint/70
+           focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25;
+  }
+  .q-expr .q-input { @apply mx-1 align-middle; }
+  .q-expr--prompt + .q-input { @apply ml-1; }
+  .q-input.is-correct   { @apply border-accent bg-accent-soft text-accent-soft-fg; }
+  .q-input.is-incorrect { @apply border-bad bg-bad-soft text-bad-soft-fg line-through; }
+
+  .q-mark { @apply flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold; }
+  .q-mark.is-correct   { @apply bg-accent text-accent-fg; }
+  .q-mark.is-incorrect { @apply bg-bad text-white; }
+
+  .q-solution {
+    @apply ml-1 hidden shrink-0 whitespace-nowrap rounded bg-warn-soft px-1.5 py-0.5
+           font-mono text-[0.82em] font-bold text-warn-soft-fg;
+  }
+  .q-item.is-revealed .q-solution { @apply inline-flex items-center; }
+
+  /* ---------- answer key ---------- */
+  .ak-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.5rem;
+  }
+  @media (min-width: 640px) { .ak-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .ak-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .ak-item {
+    @apply flex items-baseline gap-2 border-b border-dotted border-line py-1.5 text-sm;
+  }
+  .ak-n { @apply w-6 shrink-0 text-right font-mono text-xs text-faint; }
+  .ak-a { @apply font-mono font-semibold text-strong; }
+
+  /* ---------- fractions ---------- */
+  .frac {
+    display: inline-flex; flex-direction: column; vertical-align: middle;
+    text-align: center; line-height: 1.08; font-size: .78em; margin: 0 .12em;
+    position: relative; top: -.04em;
+  }
+  .frac > .num { border-bottom: 1.5px solid currentColor; padding: 0 .26em .05em; }
+  .frac > .den { padding: .05em .26em 0; }
+  .mixnum { display: inline-flex; align-items: center; gap: .1em; }
+  .op { @apply px-0.5 text-soft; }
+  .boxed {
+    @apply inline-flex min-w-[1.6em] items-center justify-center rounded border border-dashed
+           border-line-strong px-1 py-0.5 text-faint;
+  }
+
+  /* ---------- editorial ---------- */
+  .article h2 { @apply mt-10 text-2xl sm:text-[1.7rem]; }
+  .article h3 { @apply mt-7 text-lg font-semibold; }
+  .article p  { @apply mt-4 leading-[1.7] text-body; }
+  .article ul, .article ol { @apply mt-4 space-y-2 pl-5; }
+  .article li { @apply leading-[1.65] text-body marker:text-accent; }
+  .article ul > li { @apply list-disc; }
+  .article ol > li { @apply list-decimal; }
+  .article strong { @apply font-semibold text-strong; }
+  .article code { @apply rounded bg-raise px-1.5 py-0.5 font-mono text-[0.85em] text-strong; }
+  .article table { @apply mt-5 w-full border-collapse text-sm; }
+  .article th { @apply border border-line bg-raise px-3 py-2 text-left font-semibold text-strong; }
+  .article td { @apply border border-line px-3 py-2 align-top text-body; }
+
+  .note { @apply mt-6 rounded-lg border-l-[3px] border-accent bg-accent-soft/60 p-4; }
+  .note-warn { @apply mt-6 rounded-lg border-l-[3px] border-warn bg-warn-soft/60 p-4; }
+
+  .stat-num { @apply font-display text-2xl font-bold text-strong; }
+  .stat-cap { @apply text-[0.7rem] font-semibold uppercase tracking-wider text-faint; }
+}
+
+/* ============================================================
+   Density + text size
+   ============================================================ */
+
+html.mi-compact { --mi-q-size: .95rem; --mi-q-pad: .3rem; }
+html.mi-compact .q-input { @apply w-20 py-1; }
+html.mi-compact .card-pad { @apply p-4; }
+
+html.mi-font-lg { --mi-q-size: 1.2rem; }
+html.mi-font-xl { --mi-q-size: 1.4rem; }
+html.mi-font-lg .q-input { @apply w-28; }
+html.mi-font-xl .q-input { @apply w-32; }
+
+/* ============================================================
+   Answer key visibility (screen)
+   ============================================================ */
+
+.answer-key { display: none; }
+html.mi-show-key .answer-key { display: block; }
+
+/* ============================================================
+   Print
+   ============================================================ */
+
+.print-only { display: none; }
+.class-set { display: none; }
+
+@media print {
+  @page { size: A4 portrait; margin: 11mm 11mm 9mm; }
+
+  :root, html.mi-dark, html.mi-contrast, html.mi-dark.mi-contrast {
+    --c-canvas: 255 255 255; --c-surface: 255 255 255; --c-raise: 255 255 255;
+    --c-sunken: 255 255 255; --c-line: 150 150 150; --c-line-strong: 90 90 90;
+    --c-strong: 0 0 0; --c-body: 0 0 0; --c-soft: 40 40 40; --c-faint: 100 100 100;
+    --c-accent: 0 0 0; --c-accent-soft: 255 255 255; --c-accent-soft-fg: 0 0 0;
+    --c-warn-soft: 255 255 255; --c-warn-soft-fg: 0 0 0;
+    --c-bad: 0 0 0; --c-bad-soft: 255 255 255; --c-bad-soft-fg: 0 0 0;
+  }
+
+  html, body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+
+  .no-print, header.site-header, footer.site-footer, .ad-slot, .ad-wrap,
+  .settings-drawer, .toolbar, .breadcrumbs, .skip-link, .mi-screen-only,
+  nav, aside { display: none !important; }
+
+  .print-only { display: block !important; }
+
+  main, .card, .worksheet-shell {
+    border: 0 !important; box-shadow: none !important;
+    padding: 0 !important; margin: 0 !important; max-width: none !important;
+  }
+
+  .q-grid {
+    grid-auto-flow: column !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: repeat(var(--mi-rows), auto) !important;
+    column-gap: 14mm !important;
+  }
+  .q-item {
+    padding-top: 2.1mm !important; padding-bottom: 2.1mm !important;
+    font-size: 11pt !important; border-bottom: .3pt dotted #999 !important;
+    break-inside: avoid;
+  }
+  .q-input {
+    border: .6pt solid #444 !important; background: #fff !important; color: #000 !important;
+    width: 20mm !important; padding: .8mm !important; box-shadow: none !important;
+    text-decoration: none !important;
+  }
+  /* --- one-page density bands ------------------------------------------
+     A worksheet must always occupy exactly one sheet of A4. practice.js sets
+     html[data-print-density] from the row count; each band tightens the type,
+     the padding and the page margin just enough to keep 60 questions on one
+     page without making 24 questions look cramped. */
+  html[data-print-density="snug"] { }
+  html[data-print-density="snug"] .q-item {
+    padding-top: 1.6mm !important; padding-bottom: 1.6mm !important;
+    font-size: 10.5pt !important;
+  }
+
+  html[data-print-density="tight"] .q-item {
+    padding-top: 1.15mm !important; padding-bottom: 1.15mm !important;
+    font-size: 10pt !important;
+  }
+  html[data-print-density="tight"] .q-grid { column-gap: 11mm !important; }
+  html[data-print-density="tight"] .q-input { width: 17mm !important; padding: .5mm !important; }
+
+  html[data-print-density="tighter"] .q-item {
+    padding-top: .7mm !important; padding-bottom: .7mm !important;
+    font-size: 9pt !important; line-height: 1.25 !important;
+  }
+  html[data-print-density="tighter"] .q-grid { column-gap: 9mm !important; }
+  html[data-print-density="tighter"] .q-input { width: 15mm !important; padding: .4mm !important; }
+  html[data-print-density="tighter"] .sheet-head { margin-bottom: 3mm !important; }
+  html[data-print-density="tighter"] .frac { font-size: .78em !important; }
+
+  .q-mark { background: transparent !important; color: #000 !important; }
+  .q-solution { background: transparent !important; color: #000 !important; padding: 0 1mm !important; }
+
+  /* --- print mode switching --- */
+  .answer-key { display: none !important; }
+
+  html.print-answers .worksheet-shell,
+  html.print-answers .score-banner { display: none !important; }
+  html.print-answers .answer-key { display: block !important; }
+
+  html.print-both .answer-key { display: block !important; break-before: page; }
+
+  html.print-set .worksheet-shell,
+  html.print-set .answer-key,
+  html.print-set .sheet-head,
+  html.print-set .print-only { display: none !important; }
+  html.print-set .class-set { display: block !important; }
+
+  .class-set-sheet { break-after: page; }
+  .class-set-sheet:last-child { break-after: auto; }
+
+  .ak-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .ak-item { border-bottom: .3pt dotted #999 !important; padding: 1.2mm 0 !important; font-size: 10pt !important; }
+
+  a[href]::after { content: '' !important; }
+}

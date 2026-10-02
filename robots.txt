@@ -1,0 +1,14 @@
+# Math It! — robots.txt
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /src/
+
+# Ad crawlers need access to render pages correctly
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+Sitemap: https://www.mathit.co.uk/sitemap.xml
